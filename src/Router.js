@@ -3,7 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Favorites, Restaurants } from './pages'
+
 const Tab = createBottomTabNavigator();
+
 function Router() {
     return (
         <NavigationContainer>
