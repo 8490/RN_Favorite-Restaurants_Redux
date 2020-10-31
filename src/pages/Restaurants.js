@@ -1,8 +1,9 @@
 import axios from "axios"
-import React, { useEffect } from "react";
-import {SafeAreaView, View, Text} from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, View, Text, FlatList } from "react-native";
 
 const Restaurants = () => {
+    const [list, setList] = useState([]);
 
     const fetchData = () => {
         axios.post(
@@ -21,17 +22,23 @@ const Restaurants = () => {
                     }
             } 
         )
-            .then(response => console.log(response))
+            .then(response => setList(response.data.results.data))
             .catch(error => console.log(error))
     }
 
     useEffect(() => fetchData (), [])
 
+    const renderList = ({item}) => null
+
 
     return (
         <SafeAreaView>
             <View>
-                <Text>Restaurants</Text>
+                <Text style={{fontSize: 25, textAlign: "center", fontWeight:"bold"}}>Restaurants</Text>
+                <FlatList
+                    data={list}
+                    renderItem={renderList}
+                />
             </View>
         </SafeAreaView>
     );
