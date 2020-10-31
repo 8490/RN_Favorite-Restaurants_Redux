@@ -2,12 +2,19 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Favorites, Restaurants } from './pages'
+
+import { createStore } from "redux";
+import { Provider } from "react-redux"
+
+import {reducer, initialState} from "./context";
+import { Favorites, Restaurants } from "./pages"
 
 const Tab = createBottomTabNavigator();
+const store = createStore(reducer, initialState);
 
 function Router() {
     return (
+      <Provider store={store}>
         <NavigationContainer>
             <Tab.Navigator
                 initialRouteName="RestaurantsPage"
@@ -45,6 +52,7 @@ function Router() {
                 />
             </Tab.Navigator>
         </NavigationContainer>
+      </Provider>
     );
 }
 export default Router;
