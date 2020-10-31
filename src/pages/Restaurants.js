@@ -1,47 +1,36 @@
-import axios from "axios"
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, FlatList } from "react-native";
+import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, Text, View, FlatList } from 'react-native';
 
-const Restaurants = () => {
+import { RestaurantItem } from '../components'
+
+const Restaurants = (props) => {
     const [list, setList] = useState([]);
 
     const fetchData = () => {
-        axios.post(
-            "https://worldwide-restaurants.p.rapidapi.com/search",
-            {
-                "limit" : "30",
-                "language" : "en_US",
-                "location_id" : "297704",
-                "currency" : "USD"
-            },
-            {
-                headers: {
-                    "content-type":"application/json",
-                    "x-rapidapi-host":"worldwide-restaurants.p.rapidapi.com",
-                    "x-rapidapi-key":"e0c1aedc75mshd07f99933b28fb5p1460d3jsna5c74601d4e9",
-                    }
-            } 
+        axios.get(
+            'https://opentable.herokuapp.com/api/restaurants?state=IL',
         )
-            .then(response => setList(response.data.results.data))
+            .then(response => setList(response.data.restaurants))
             .catch(error => console.log(error))
     }
 
-    useEffect(() => fetchData (), [])
+    useEffect(() => fetchData(), []);
 
-    const renderList = ({item}) => null
-
+    const renderList = ({ item }) => <RestaurantItem item={item} />
 
     return (
         <SafeAreaView>
             <View>
-                <Text style={{fontSize: 25, textAlign: "center", fontWeight:"bold"}}>Restaurants</Text>
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }}>Restaurants</Text>
                 <FlatList
+                    keyExtractor={(_, index) => index.toString()}
                     data={list}
                     renderItem={renderList}
                 />
             </View>
         </SafeAreaView>
-    );
-};
+    )
+}
 
-export { Restaurants };
+export { Restaurants }
