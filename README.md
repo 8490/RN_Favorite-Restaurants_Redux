@@ -1,1 +1,1 @@
-# RN_FavoriteRestaurants_Redux
+# RN_Random_restaurant_API
