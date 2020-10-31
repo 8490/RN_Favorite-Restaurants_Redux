@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName="RestaurantPage">
         <Tab.Screen name="FavoritePage" component={Favorites} />
         <Tab.Screen name="RestaurantPage" component={Restaurants} />
       </Tab.Navigator>
